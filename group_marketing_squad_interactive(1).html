@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Group Marketing Squad Design</title>
+  <style>
+    :root {
+      --navy: #0b2347;
+      --blue: #1d5fa7;
+      --teal: #0b7f86;
+      --green: #1f8a4c;
+      --purple: #6f49a7;
+      --orange: #e87518;
+      --light: #f6f8fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --line: #d8e1ef;
+      --shadow: 0 14px 35px rgba(15, 35, 71, 0.12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(29, 95, 167, 0.12), transparent 28rem),
+        radial-gradient(circle at bottom right, rgba(232, 117, 24, 0.13), transparent 30rem),
+        var(--light);
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--navy), #123a70);
+      color: white;
+      padding: 34px 22px 28px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+
+    header p {
+      margin: 12px auto 0;
+      max-width: 850px;
+      color: #dceafe;
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      margin-top: -18px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 1.2fr 2fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .orchestrator {
+      border-radius: 16px;
+      background: linear-gradient(135deg, #082041, #174b8c);
+      color: white;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    .orchestrator::after {
+      content: "◎";
+      position: absolute;
+      right: -20px;
+      bottom: -55px;
+      font-size: 13rem;
+      color: rgba(255,255,255,0.08);
+      font-weight: 900;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .orchestrator h2 {
+      margin: 18px 0 10px;
+      font-size: 1.55rem;
+    }
+
+    .orchestrator p {
+      margin: 0;
+      line-height: 1.55;
+      color: #e8f1ff;
+      max-width: 460px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .orchestrator-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .mini-card {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 130px;
+    }
+
+    .mini-card .icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #eff6ff;
+      color: var(--blue);
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+
+    .mini-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    .section-title {
+      margin: 34px 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 1.45rem;
+    }
+
+    .hint {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .workflow {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      overflow: hidden;
+    }
+
+    .flow-row {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(110px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+      position: relative;
+    }
+
+    .step {
+      border: 2px solid transparent;
+      border-radius: 18px;
+      padding: 16px 12px;
+      text-align: center;
+      background: #f8fafc;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+      min-height: 140px;
+      position: relative;
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(15, 35, 71, .12);
+    }
+
+    .step.active {
+      background: white;
+      border-color: currentColor;
+      box-shadow: 0 14px 25px rgba(15, 35, 71, .12);
+    }
+
+    .step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -17px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #8aa0bd;
+      font-size: 1.25rem;
+      font-weight: 900;
+      z-index: 2;
+    }
+
+    .step .num {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 10px;
+      color: white;
+      font-weight: 900;
+      background: currentColor;
+      box-shadow: inset 0 0 0 999px rgba(0,0,0,.02);
+    }
+
+    .step .num span {
+      color: #fff;
+    }
+
+    .step h3 {
+      margin: 0;
+      font-size: .98rem;
+      line-height: 1.2;
+    }
+
+    .step p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.3;
+    }
+
+    .research { color: var(--green); }
+    .briefing { color: var(--blue); }
+    .human { color: var(--orange); }
+    .content { color: var(--purple); }
+    .compliance { color: var(--teal); }
+    .publish { color: #27843d; }
+    .monitor { color: #275ca8; }
+
+    .details {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+    }
+
+    .detail-panel,
+    .check-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .detail-panel h2,
+    .check-panel h2 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 1.25rem;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: #f8fafc;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .info-box {
+      border-radius: 14px;
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+    }
+
+    .info-box h4 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: .92rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.55;
+      color: #334155;
+      font-size: .92rem;
+    }
+
+    .output {
+      margin-top: 12px;
+      border-left: 5px solid currentColor;
+      background: #fffdf8;
+      padding: 13px 14px;
+      border-radius: 12px;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #edf2f7;
+      font-size: .92rem;
+      line-height: 1.4;
+    }
+
+    .tick {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: #dcfce7;
+      color: #166534;
+      font-weight: 900;
+    }
+
+    .routing {
+      margin-top: 16px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .route-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .route-card h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 1rem;
+    }
+
+    .route-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: .92rem;
+    }
+
+    .footer-grid {
+      margin: 18px 0 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .principles, .copy-box {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      border: 1px solid var(--line);
+    }
+
+    .principles h2,
+    .copy-box h2 {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-size: 1.18rem;
+    }
+
+    .sequence-text {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f1f5f9;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.55;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: var(--navy);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    button:hover { background: #153866; }
+
+    .toast {
+      display: none;
+      margin-top: 10px;
+      color: #166534;
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .details, .routing, .footer-grid { grid-template-columns: 1fr; }
+      .orchestrator-grid { grid-template-columns: repeat(2, 1fr); }
+      .flow-row {
+        grid-template-columns: repeat(2, minmax(140px, 1fr));
+      }
+      .step:not(:last-child)::after { content: ""; }
+    }
+
+    @media (max-width: 560px) {
+      .detail-grid, .orchestrator-grid { grid-template-columns: 1fr; }
+      .flow-row { grid-template-columns: 1fr; }
+      header { padding-top: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Group Marketing Squad Design</h1>
+    <p>Interactive agent-based workflow for a MacBook campaign, coordinated by an Orchestrator Agent with only two key human checkpoints.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="hero" aria-label="Orchestrator overview">
+      <div class="orchestrator">
+        <span class="label">Central Coordinator</span>
+        <h2>Orchestrator Agent</h2>
+        <p>
+          Keeps the human team posted on what is happening across the workflow. It tracks progress, routes outputs between agents, highlights issues, and triggers human review only at the two critical checkpoints.
+        </p>
+      </div>
+
+      <div class="orchestrator-grid">
+        <div class="mini-card">
+          <div class="icon">👁️</div>
+          <h3>Perceive</h3>
+          <p>Receives campaign inputs, agent outputs, timeline, progress updates and issues.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🧭</div>
+          <h3>Plan</h3>
+          <p>Decides task order, readiness criteria and priority routing.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">🔀</div>
+          <h3>Act</h3>
+          <p>Assigns work, passes outputs forward and sends issues back.</p>
+        </div>
+        <div class="mini-card">
+          <div class="icon">📊</div>
+          <h3>Observe</h3>
+          <p>Monitors progress, quality, issues and when human review is needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title">
+      <h2>Interactive Workflow</h2>
+      <p class="hint">Click each stage to view the key information needed.</p>
+    </div>
+
+    <section class="workflow" aria-label="Workflow">
+      <div class="flow-row" id="flowRow">
+        <div class="step research active" data-step="research" tabindex="0">
+          <div class="num"><span>1</span></div>
+          <h3>Research Agent</h3>
+          <p>Market signals and competitive intelligence</p>
+        </div>
+
+        <div class="step briefing" data-step="briefing" tabindex="0">
+          <div class="num"><span>2</span></div>
+          <h3>Briefing Agent</h3>
+          <p>Turns research into a clear campaign brief</p>
+        </div>
+
+        <div class="step human" data-step="h1" tabindex="0">
+          <div class="num"><span>H1</span></div>
+          <h3>Human Checkpoint 1</h3>
+          <p>Campaign direction approval</p>
+        </div>
+
+        <div class="step content" data-step="content" tabindex="0">
+          <div class="num"><span>3</span></div>
+          <h3>Content Agent</h3>
+          <p>Creates platform-specific copy</p>
+        </div>
+
+        <div class="step compliance" data-step="compliance" tabindex="0">
+          <div class="num"><span>4</span></div>
+          <h3>Compliance Agent</h3>
+          <p>Checks rules, risks and brand safety</p>
+        </div>
+
+        <div class="step human" data-step="h2" tabindex="0">
+          <div class="num"><span>H2</span></div>
+          <h3>Human Checkpoint 2</h3>
+          <p>Final content approval</p>
+        </div>
+
+        <div class="step publish" data-step="publish" tabindex="0">
+          <div class="num"><span>5</span></div>
+          <h3>Publish</h3>
+          <p>Schedule approved content</p>
+        </div>
+
+        <div class="step monitor" data-step="monitor" tabindex="0">
+          <div class="num"><span>6</span></div>
+          <h3>Monitor</h3>
+          <p>Feed learnings back to research</p>
+        </div>
+      </div>
+
+      <div class="details">
+        <article class="detail-panel" id="detailPanel">
+          <!-- JS injects content -->
+        </article>
+
+        <aside class="check-panel" id="checkPanel">
+          <!-- JS injects content -->
+        </aside>
+      </div>
+    </section>
+
+    <section class="routing" aria-label="Routing guidance">
+      <div class="route-card">
+        <h3>When to send back to Research</h3>
+        <p>Competitor data is missing, pricing looks outdated, market reaction is unclear, or audience insight is weak.</p>
+      </div>
+      <div class="route-card">
+        <h3>When to send back to Briefing</h3>
+        <p>The campaign focus is unclear, the benefit does not connect to the brand attribute, or the platform choice is not convincing.</p>
+      </div>
+      <div class="route-card">
+        <h3>When to send back to Content</h3>
+        <p>The message is off-brand, too generic, not platform-fit, or needs clearer copy before compliance or approval.</p>
+      </div>
+    </section>
+
+    <section class="footer-grid">
+      <div class="principles">
+        <h2>Key Principles</h2>
+        <ul>
+          <li>Humans review only at two critical points.</li>
+          <li>Agents handle heavy lifting, humans provide judgement.</li>
+          <li>The Orchestrator keeps humans posted and checks connection between steps.</li>
+          <li>Every agent must produce a usable output for the next agent.</li>
+        </ul>
+      </div>
+
+      <div class="copy-box">
+        <h2>Simple Sequence</h2>
+        <div class="sequence-text" id="sequenceText">
+          Orchestrator → Research → Briefing → Human Check 1 → Content → Compliance → Human Check 2 → Publish → Monitor → Feedback
+        </div>
+        <button type="button" id="copyBtn">Copy Sequence</button>
+        <div class="toast" id="toast">Copied.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const data = {
+      research: {
+        title: "Research Agent",
+        role: "Produces structured market intelligence for the Briefing Agent.",
+        tags: ["Input Agent", "Market Intelligence", "Always-on"],
+        perceive: [
+          "Competitor pricing pages and ecommerce listings",
+          "Reviews, LinkedIn updates, news and social feeds",
+          "Product specs, previous launch report and audience brief",
+          "Audience behaviours, media habits and age group signals"
+        ],
+        plan: [
+          "Prioritise signals: pricing change > new product > press release",
+          "Map competitor features and pricing against MacBook offer",
+          "Identify positioning gaps and missing data"
+        ],
+        act: [
+          "Use scraping/API and LLM synthesis",
+          "Draft competitive landscape summary",
+          "Recommend positioning angles and pricing benchmarks"
+        ],
+        observe: [
+          "Check timestamp is within 24 hours where relevant",
+          "Check key competitors are covered",
+          "Re-query if fields are missing or outdated"
+        ],
+        output: "Market intelligence summary with competitor analysis, pricing range, audience signals and positioning gaps.",
+        checks: [
+          "Are key competitors covered?",
+          "Are pricing and claims current?",
+          "Are sources reliable enough?",
+          "Is there enough insight to create a brief?"
+        ]
+      },
+      briefing: {
+        title: "Briefing Agent",
+        role: "Turns research into a clear content brief.",
+        tags: ["Strategy Bridge", "Campaign Direction", "Brief Builder"],
+        perceive: [
+          "MacBook benefit",
+          "Brand attribute to highlight",
+          "Target audience and key pain point",
+          "Pricing, platform and content requirement",
+          "Research Agent’s positioning insights"
+        ],
+        plan: [
+          "Connect benefit to brand attribute",
+          "Explain why it matters to the audience",
+          "Select suitable content type and platform",
+          "Check timeline and campaign fit"
+        ],
+        act: [
+          "Generate structured campaign brief",
+          "Use: Focus on benefit X to highlight brand attribute Y for audience Z",
+          "Recommend content B for platform C"
+        ],
+        observe: [
+          "Check clarity and logic",
+          "Check audience relevance",
+          "Check platform suitability"
+        ],
+        output: "Approved-ready brief linking benefit, brand attribute, audience, content format and platform.",
+        checks: [
+          "Is the campaign focus clear?",
+          "Does the benefit support the brand attribute?",
+          "Is the audience specific enough?",
+          "Is the platform recommendation sensible?"
+        ]
+      },
+      h1: {
+        title: "Human Checkpoint 1: Campaign Direction Approval",
+        role: "Human approves the campaign direction before content production starts.",
+        tags: ["Human Decision Gate", "Before Content Creation"],
+        perceive: [
+          "Research summary",
+          "Structured campaign brief",
+          "Target audience and platform recommendation"
+        ],
+        plan: [
+          "Review whether the direction is strategically sound",
+          "Decide whether agents can proceed to content creation"
+        ],
+        act: [
+          "Approve the brief",
+          "Send back to Research Agent if evidence is weak",
+          "Send back to Briefing Agent if the direction is unclear"
+        ],
+        observe: [
+          "Ensure decision is recorded",
+          "Ensure next agent receives approved direction only"
+        ],
+        output: "Go / revise decision before content creation.",
+        checks: [
+          "Is the research accurate enough?",
+          "Is the brief clear and usable?",
+          "Is the audience and platform fit correct?",
+          "Is the campaign message aligned with brand intent?"
+        ]
+      },
+      content: {
+        title: "Content Agent",
+        role: "Creates platform-specific copy based on the approved brief.",
+        tags: ["Creative Drafting", "Platform Copy", "Content Production"],
+        perceive: [
+          "Approved campaign brief",
+          "Value proposition and product information",
+          "Audience personas and brand guidelines",
+          "MacBook imagery, market region and platform specs",
+          "Past social media content"
+        ],
+        plan: [
+          "Match message to audience and platform",
+          "Adapt tone and format by channel",
+          "Use past content as style reference"
+        ],
+        act: [
+          "Draft 3 copy options per channel",
+          "Channels: TikTok, Instagram, Facebook and Website",
+          "Prepare copy for compliance review"
+        ],
+        observe: [
+          "Check brand tone",
+          "Check platform fit",
+          "Check safety and basic quality"
+        ],
+        output: "Draft content options ready for compliance review.",
+        checks: [
+          "Is the copy aligned to the approved brief?",
+          "Is the copy suitable for each platform?",
+          "Is it clear and not too generic?",
+          "Does it stay within brand tone?"
+        ]
+      },
+      compliance: {
+        title: "Compliance Agent",
+        role: "Checks content against campaign, brand, platform, legal and safety rules.",
+        tags: ["Risk Review", "Brand Safety", "Guideline Check"],
+        perceive: [
+          "Draft content from Content Agent",
+          "Campaign brief",
+          "Brand guidelines and brand voice rules",
+          "Platform guidelines, internal marketing codes and legal rules",
+          "Priority matrix for guidelines"
+        ],
+        plan: [
+          "Scan in priority order: brief → brand → legal/safety → platform",
+          "Flag gaps, ambiguity and risk level",
+          "Prepare checklist for human approval"
+        ],
+        act: [
+          "Identify specific guideline or rule breached",
+          "Assign priority level",
+          "Recommend fix or escalation"
+        ],
+        observe: [
+          "Check compliance accuracy",
+          "Check moderation quality",
+          "Escalate unclear legal or brand safety issues"
+        ],
+        output: "Compliance checklist with flagged issues, priority levels and recommended fixes.",
+        checks: [
+          "Are product claims safe?",
+          "Does copy follow brand guidelines?",
+          "Does it follow platform rules?",
+          "Are legal or brand safety risks clearly flagged?"
+        ]
+      },
+      h2: {
+        title: "Human Checkpoint 2: Final Content Approval",
+        role: "Human approves the final content before publishing.",
+        tags: ["Human Decision Gate", "Before Publishing"],
+        perceive: [
+          "Content drafts",
+          "Compliance checklist",
+          "Recommended fixes and flagged risks"
+        ],
+        plan: [
+          "Review final content quality and risk",
+          "Decide whether content is ready to publish"
+        ],
+        act: [
+          "Approve for publish",
+          "Send back to Content Agent for copy issue",
+          "Send back to Compliance Agent for risk issue",
+          "Send back to Briefing Agent if campaign direction is wrong"
+        ],
+        observe: [
+          "Ensure only approved content is published",
+          "Record approval and final decision"
+        ],
+        output: "Final publish / revise decision.",
+        checks: [
+          "Is the content accurate and brand-aligned?",
+          "Are product claims safe and appropriate?",
+          "Does it follow platform and brand rules?",
+          "Is the content ready to publish?"
+        ]
+      },
+      publish: {
+        title: "Publish / Schedule Content",
+        role: "Approved content goes live across selected channels.",
+        tags: ["Execution", "Publishing"],
+        perceive: [
+          "Final approved copy",
+          "Approved platform list",
+          "Publishing timeline"
+        ],
+        plan: [
+          "Match content to channel and timing",
+          "Prepare schedule and posting details"
+        ],
+        act: [
+          "Publish or schedule content",
+          "Ensure correct asset and caption are used"
+        ],
+        observe: [
+          "Confirm post is live or scheduled",
+          "Check no wrong version was used"
+        ],
+        output: "Published or scheduled content across approved channels.",
+        checks: [
+          "Is the correct final version used?",
+          "Is the platform and timing correct?",
+          "Are links, tags and assets correct?"
+        ]
+      },
+      monitor: {
+        title: "Post-Campaign Monitoring",
+        role: "Tracks performance and feeds insights back into the Orchestrator and Research Agent.",
+        tags: ["Learning Loop", "Optimisation"],
+        perceive: [
+          "Engagement and performance results",
+          "Audience comments and sentiment",
+          "Competitor response and market movement"
+        ],
+        plan: [
+          "Compare results against campaign objective",
+          "Identify what should be adjusted next"
+        ],
+        act: [
+          "Summarise performance signals",
+          "Feed findings back to Orchestrator and Research Agent"
+        ],
+        observe: [
+          "Check if campaign needs adjustment",
+          "Track emerging market signals"
+        ],
+        output: "Post-campaign learning summary for next cycle.",
+        checks: [
+          "What performed well?",
+          "What needs adjustment?",
+          "Did the audience respond as expected?",
+          "Should research watchlist be updated?"
+        ]
+      }
+    };
+
+    const detailPanel = document.getElementById("detailPanel");
+    const checkPanel = document.getElementById("checkPanel");
+    const steps = document.querySelectorAll(".step");
+
+    function list(items) {
+      return "<ul>" + items.map(item => `<li>${item}</li>`).join("") + "</ul>";
+    }
+
+    function render(stepKey) {
+      const item = data[stepKey];
+
+      detailPanel.className = "detail-panel " + (
+        stepKey === "research" ? "research" :
+        stepKey === "briefing" ? "briefing" :
+        stepKey === "content" ? "content" :
+        stepKey === "compliance" ? "compliance" :
+        stepKey === "publish" ? "publish" :
+        stepKey === "monitor" ? "monitor" : "human"
+      );
+
+      detailPanel.innerHTML = `
+        <h2>${item.title}</h2>
+        <p style="margin-top:0;color:#475569;line-height:1.55">${item.role}</p>
+        <div class="meta">${item.tags.map(t => `<span class="pill">${t}</span>`).join("")}</div>
+        <div class="detail-grid">
+          <div class="info-box"><h4>Perceive</h4>${list(item.perceive)}</div>
+          <div class="info-box"><h4>Plan</h4>${list(item.plan)}</div>
+          <div class="info-box"><h4>Act</h4>${list(item.act)}</div>
+          <div class="info-box"><h4>Observe</h4>${list(item.observe)}</div>
+        </div>
+        <div class="output"><strong>Key Output:</strong> ${item.output}</div>
+      `;
+
+      checkPanel.innerHTML = `
+        <h2>Key Guidance</h2>
+        <p style="margin-top:0;color:#64748b;line-height:1.55">
+          Use this as the minimum check before the work moves forward.
+        </p>
+        <div class="check-list">
+          ${item.checks.map(c => `
+            <div class="check-item">
+              <div class="tick">✓</div>
+              <div>${c}</div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    steps.forEach(step => {
+      step.addEventListener("click", () => {
+        steps.forEach(s => s.classList.remove("active"));
+        step.classList.add("active");
+        render(step.dataset.step);
+      });
+
+      step.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          step.click();
+        }
+      });
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const text = document.getElementById("sequenceText").innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        const toast = document.getElementById("toast");
+        toast.style.display = "block";
+        setTimeout(() => toast.style.display = "none", 1800);
+      } catch (e) {
+        alert(text);
+      }
+    });
+
+    render("research");
+  </script>
+</body>
+</html>
