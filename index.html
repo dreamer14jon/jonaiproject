@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Group Marketing Squad Design</title>
+  <title>Group Marketing Squad Working Prototype</title>
   <style>
     :root {
       --navy: #0b2347;
@@ -12,6 +12,7 @@
       --green: #1f8a4c;
       --purple: #6f49a7;
       --orange: #e87518;
+      --red: #c2410c;
       --light: #f6f8fb;
       --card: #ffffff;
       --text: #1e293b;
@@ -36,58 +37,63 @@
     header {
       background: linear-gradient(135deg, var(--navy), #123a70);
       color: white;
-      padding: 34px 22px 28px;
+      padding: 32px 22px 28px;
       text-align: center;
     }
 
     header h1 {
       margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      font-size: clamp(1.8rem, 4vw, 3.1rem);
       letter-spacing: -0.04em;
       line-height: 1.05;
     }
 
     header p {
       margin: 12px auto 0;
-      max-width: 850px;
+      max-width: 900px;
       color: #dceafe;
       font-size: 1.02rem;
       line-height: 1.55;
     }
 
     .wrap {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 32px));
       margin: 0 auto;
     }
 
-    .hero {
+    .top-grid {
       margin-top: -18px;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
       display: grid;
-      grid-template-columns: 1.2fr 2fr;
-      gap: 20px;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 18px;
       align-items: stretch;
     }
 
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      padding: 22px;
+    }
+
     .orchestrator {
-      border-radius: 16px;
       background: linear-gradient(135deg, #082041, #174b8c);
       color: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       padding: 22px;
       position: relative;
       overflow: hidden;
-      min-height: 220px;
+      min-height: 275px;
     }
 
     .orchestrator::after {
       content: "◎";
       position: absolute;
-      right: -20px;
-      bottom: -55px;
-      font-size: 13rem;
+      right: -22px;
+      bottom: -70px;
+      font-size: 15rem;
       color: rgba(255,255,255,0.08);
       font-weight: 900;
     }
@@ -104,65 +110,112 @@
       font-weight: 800;
       letter-spacing: .03em;
       text-transform: uppercase;
+      position: relative;
+      z-index: 1;
     }
 
     .orchestrator h2 {
       margin: 18px 0 10px;
       font-size: 1.55rem;
+      position: relative;
+      z-index: 1;
     }
 
     .orchestrator p {
       margin: 0;
       line-height: 1.55;
       color: #e8f1ff;
-      max-width: 460px;
+      max-width: 560px;
       position: relative;
       z-index: 1;
     }
 
-    .orchestrator-grid {
+    .status-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
     }
 
-    .mini-card {
-      background: #ffffff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      min-height: 130px;
+    .status-box {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      padding: 12px;
     }
 
-    .mini-card .icon {
-      width: 42px;
-      height: 42px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: #eff6ff;
-      color: var(--blue);
-      font-size: 1.35rem;
-      margin-bottom: 10px;
+    .status-box small {
+      display: block;
+      color: #bed6ff;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-size: .72rem;
+      margin-bottom: 5px;
     }
 
-    .mini-card h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
+    .status-box strong {
+      display: block;
+      font-size: .98rem;
+      line-height: 1.25;
+    }
+
+    .controls h2, .stage-panel h2, .checks-panel h2, .log-panel h2 {
+      margin: 0 0 10px;
       color: var(--navy);
+      font-size: 1.25rem;
     }
 
-    .mini-card p {
-      margin: 0;
+    .controls p {
+      margin: 0 0 14px;
       color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.45;
+      line-height: 1.5;
     }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: var(--navy);
+      color: white;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .16s ease, opacity .16s ease, background .16s ease;
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      background: #153866;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .45;
+    }
+
+    .secondary { background: #e2e8f0; color: var(--navy); }
+    .secondary:hover:not(:disabled) { background: #d5deea; }
+    .approve { background: var(--green); }
+    .approve:hover:not(:disabled) { background: #176f3c; }
+    .revise { background: var(--orange); }
+    .revise:hover:not(:disabled) { background: #c35f11; }
+    .danger { background: #b91c1c; }
+    .danger:hover:not(:disabled) { background: #991b1b; }
 
     .section-title {
-      margin: 34px 0 14px;
+      margin: 24px 0 14px;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 14px;
     }
@@ -170,94 +223,121 @@
     .section-title h2 {
       margin: 0;
       color: var(--navy);
-      font-size: 1.45rem;
+      font-size: 1.4rem;
     }
 
-    .hint {
-      margin: 0;
+    .section-title p {
+      margin: 4px 0 0;
       color: var(--muted);
-      font-size: .92rem;
     }
 
     .workflow {
-      background: var(--card);
+      background: white;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 22px;
+      border: 1px solid var(--line);
+      padding: 18px;
       overflow: hidden;
     }
 
     .flow-row {
       display: grid;
       grid-template-columns: repeat(8, minmax(110px, 1fr));
-      gap: 12px;
+      gap: 10px;
       align-items: stretch;
-      position: relative;
     }
 
     .step {
       border: 2px solid transparent;
       border-radius: 18px;
-      padding: 16px 12px;
+      padding: 14px 10px;
       text-align: center;
       background: #f8fafc;
       cursor: pointer;
       transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
-      min-height: 140px;
+      min-height: 132px;
       position: relative;
-    }
-
-    .step:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 25px rgba(15, 35, 71, .12);
-    }
-
-    .step.active {
-      background: white;
-      border-color: currentColor;
-      box-shadow: 0 14px 25px rgba(15, 35, 71, .12);
+      color: var(--muted);
     }
 
     .step:not(:last-child)::after {
       content: "→";
       position: absolute;
-      right: -17px;
+      right: -15px;
       top: 50%;
       transform: translateY(-50%);
       color: #8aa0bd;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       font-weight: 900;
       z-index: 2;
     }
 
-    .step .num {
-      width: 38px;
-      height: 38px;
+    .step:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(15, 35, 71, .10);
+    }
+
+    .step.active {
+      background: #fff;
+      border-color: currentColor;
+      box-shadow: 0 14px 25px rgba(15, 35, 71, .12);
+    }
+
+    .step.locked {
+      opacity: .52;
+      cursor: not-allowed;
+    }
+
+    .step.completed {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .step.needs-human {
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+
+    .step.revision {
+      background: #fff7ed;
+      border-color: #fdba74;
+    }
+
+    .num {
+      width: 36px;
+      height: 36px;
       border-radius: 999px;
       display: grid;
       place-items: center;
-      margin: 0 auto 10px;
+      margin: 0 auto 9px;
       color: white;
       font-weight: 900;
       background: currentColor;
-      box-shadow: inset 0 0 0 999px rgba(0,0,0,.02);
-    }
-
-    .step .num span {
-      color: #fff;
     }
 
     .step h3 {
       margin: 0;
-      font-size: .98rem;
+      font-size: .92rem;
       line-height: 1.2;
+      color: var(--navy);
     }
 
     .step p {
-      margin: 8px 0 0;
+      margin: 7px 0 0;
       color: var(--muted);
-      font-size: .82rem;
+      font-size: .78rem;
       line-height: 1.3;
+    }
+
+    .badge {
+      display: inline-flex;
+      margin-top: 8px;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: .7rem;
+      font-weight: 900;
+      background: #e2e8f0;
+      color: #334155;
     }
 
     .research { color: var(--green); }
@@ -268,26 +348,19 @@
     .publish { color: #27843d; }
     .monitor { color: #275ca8; }
 
-    .details {
-      margin-top: 20px;
+    .main-grid {
+      margin-top: 18px;
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 1.1fr .9fr;
       gap: 18px;
     }
 
-    .detail-panel,
-    .check-panel {
-      background: #fff;
+    .stage-panel, .checks-panel, .log-panel {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 20px;
-    }
-
-    .detail-panel h2,
-    .check-panel h2 {
-      margin: 0 0 10px;
-      color: var(--navy);
-      font-size: 1.25rem;
+      padding: 22px;
     }
 
     .meta {
@@ -307,10 +380,21 @@
       font-weight: 700;
     }
 
-    .detail-grid {
+    .stage-output {
+      border-left: 5px solid currentColor;
+      background: #fffdf8;
+      padding: 13px 14px;
+      border-radius: 12px;
+      color: #334155;
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+
+    .stage-guidance {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
+      margin-top: 14px;
     }
 
     .info-box {
@@ -323,7 +407,7 @@
     .info-box h4 {
       margin: 0 0 8px;
       color: var(--navy);
-      font-size: .92rem;
+      font-size: .9rem;
       text-transform: uppercase;
       letter-spacing: .04em;
     }
@@ -333,17 +417,7 @@
       padding-left: 18px;
       line-height: 1.55;
       color: #334155;
-      font-size: .92rem;
-    }
-
-    .output {
-      margin-top: 12px;
-      border-left: 5px solid currentColor;
-      background: #fffdf8;
-      padding: 13px 14px;
-      border-radius: 12px;
-      color: #334155;
-      line-height: 1.5;
+      font-size: .9rem;
     }
 
     .check-list {
@@ -354,10 +428,10 @@
 
     .check-item {
       display: grid;
-      grid-template-columns: 26px 1fr;
+      grid-template-columns: 30px 1fr;
       gap: 10px;
       align-items: start;
-      padding: 10px;
+      padding: 11px;
       background: #f8fafc;
       border-radius: 12px;
       border: 1px solid #edf2f7;
@@ -365,573 +439,841 @@
       line-height: 1.4;
     }
 
-    .tick {
-      width: 24px;
-      height: 24px;
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      background: #dcfce7;
-      color: #166534;
-      font-weight: 900;
+    .check-item input {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--green);
+      margin-top: 1px;
     }
 
-    .routing {
-      margin-top: 16px;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+    .gate-box {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid #fed7aa;
+      border-radius: 14px;
+      background: #fff7ed;
     }
 
-    .route-card {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      background: #fff;
+    .gate-box.show {
+      display: block;
     }
 
-    .route-card h3 {
+    .gate-box h3 {
       margin: 0 0 8px;
-      color: var(--navy);
+      color: #9a3412;
       font-size: 1rem;
     }
 
-    .route-card p {
-      margin: 0;
-      color: var(--muted);
+    .gate-box p {
+      margin: 0 0 10px;
+      color: #7c2d12;
       line-height: 1.45;
-      font-size: .92rem;
     }
 
-    .footer-grid {
-      margin: 18px 0 30px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    .quality-meter {
+      margin-top: 14px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 14px;
     }
 
-    .principles, .copy-box {
-      background: white;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      border: 1px solid var(--line);
+    .quality-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--orange), var(--green));
+      transition: width .25s ease;
     }
 
-    .principles h2,
-    .copy-box h2 {
-      margin: 0 0 12px;
-      color: var(--navy);
-      font-size: 1.18rem;
-    }
-
-    .sequence-text {
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: #f1f5f9;
-      font-weight: 800;
-      color: var(--navy);
-      line-height: 1.55;
-    }
-
-    button {
-      appearance: none;
-      border: 0;
-      border-radius: 12px;
-      padding: 11px 14px;
-      background: var(--navy);
-      color: white;
-      font-weight: 800;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-
-    button:hover { background: #153866; }
-
-    .toast {
-      display: none;
-      margin-top: 10px;
-      color: #166534;
+    .quality-text {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: .9rem;
       font-weight: 700;
+    }
+
+    .indicator-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .indicator {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: 14px;
+      border: 1px solid #edf2f7;
+    }
+
+    .dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    .dot.on {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .dot.wait {
+      background: #ffedd5;
+      color: #9a3412;
+    }
+
+    .indicator strong {
+      display: block;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .indicator span {
+      color: var(--muted);
+      line-height: 1.35;
       font-size: .9rem;
     }
 
-    @media (max-width: 980px) {
-      .hero, .details, .routing, .footer-grid { grid-template-columns: 1fr; }
-      .orchestrator-grid { grid-template-columns: repeat(2, 1fr); }
-      .flow-row {
-        grid-template-columns: repeat(2, minmax(140px, 1fr));
-      }
+    .log-panel {
+      margin: 18px 0 30px;
+    }
+
+    .log {
+      max-height: 250px;
+      overflow: auto;
+      display: grid;
+      gap: 9px;
+      padding-right: 4px;
+    }
+
+    .log-entry {
+      display: grid;
+      grid-template-columns: 95px 1fr;
+      gap: 10px;
+      border: 1px solid #edf2f7;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 10px;
+      font-size: .9rem;
+    }
+
+    .log-entry time {
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .log-entry div {
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .small-note {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 10px 0 0;
+      font-size: .9rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 76px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      font: inherit;
+      resize: vertical;
+      color: var(--text);
+      background: #f8fafc;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 1050px) {
+      .top-grid, .main-grid { grid-template-columns: 1fr; }
+      .flow-row { grid-template-columns: repeat(2, minmax(140px, 1fr)); }
       .step:not(:last-child)::after { content: ""; }
     }
 
-    @media (max-width: 560px) {
-      .detail-grid, .orchestrator-grid { grid-template-columns: 1fr; }
-      .flow-row { grid-template-columns: 1fr; }
-      header { padding-top: 26px; }
+    @media (max-width: 600px) {
+      .flow-row, .stage-guidance, .status-grid { grid-template-columns: 1fr; }
+      .wrap { width: min(100% - 22px, 1240px); }
+      .log-entry { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Group Marketing Squad Design</h1>
-    <p>Interactive agent-based workflow for a MacBook campaign, coordinated by an Orchestrator Agent with only two key human checkpoints.</p>
+    <h1>Group Marketing Squad Working Prototype</h1>
+    <p>
+      Start from the Research Agent, complete checks, let the Orchestrator update progress, and pass through two human checkpoints before publishing.
+    </p>
   </header>
 
   <main class="wrap">
-    <section class="hero" aria-label="Orchestrator overview">
+    <section class="top-grid">
       <div class="orchestrator">
-        <span class="label">Central Coordinator</span>
-        <h2>Orchestrator Agent</h2>
+        <span class="label">Orchestrator Agent</span>
+        <h2>Keeps humans posted on what is happening</h2>
         <p>
-          Keeps the human team posted on what is happening across the workflow. It tracks progress, routes outputs between agents, highlights issues, and triggers human review only at the two critical checkpoints.
+          The Orchestrator tracks the current stage, checks whether the work can move forward, routes issues back to the right agent, and alerts humans when approval is required.
         </p>
+
+        <div class="status-grid">
+          <div class="status-box">
+            <small>Current Stage</small>
+            <strong id="currentStage">Not started</strong>
+          </div>
+          <div class="status-box">
+            <small>Orchestrator Status</small>
+            <strong id="orchestratorStatus">Waiting for Research to start</strong>
+          </div>
+          <div class="status-box">
+            <small>Next Action</small>
+            <strong id="nextAction">Click “Start Research”</strong>
+          </div>
+        </div>
       </div>
 
-      <div class="orchestrator-grid">
-        <div class="mini-card">
-          <div class="icon">👁️</div>
-          <h3>Perceive</h3>
-          <p>Receives campaign inputs, agent outputs, timeline, progress updates and issues.</p>
+      <div class="panel controls">
+        <h2>Prototype Controls</h2>
+        <p>
+          This prototype shows how the workflow moves. Start with Research, tick the required checks, complete each stage, and watch the Orchestrator indicators update.
+        </p>
+
+        <div class="button-row">
+          <button type="button" id="startBtn">Start Research</button>
+          <button type="button" class="secondary" id="resetBtn">Reset Prototype</button>
+          <button type="button" class="secondary" id="copyLogBtn">Copy Orchestrator Log</button>
         </div>
-        <div class="mini-card">
-          <div class="icon">🧭</div>
-          <h3>Plan</h3>
-          <p>Decides task order, readiness criteria and priority routing.</p>
-        </div>
-        <div class="mini-card">
-          <div class="icon">🔀</div>
-          <h3>Act</h3>
-          <p>Assigns work, passes outputs forward and sends issues back.</p>
-        </div>
-        <div class="mini-card">
-          <div class="icon">📊</div>
-          <h3>Observe</h3>
-          <p>Monitors progress, quality, issues and when human review is needed.</p>
+
+        <p class="small-note">
+          Rule: content cannot move forward unless the stage checks are completed. Human approval is required at Checkpoint 1 and Checkpoint 2.
+        </p>
+
+        <div class="indicator-list">
+          <div class="indicator">
+            <div class="dot" id="indInput">1</div>
+            <div>
+              <strong>Input readiness</strong>
+              <span id="indInputText">Waiting for campaign input to be processed by Research.</span>
+            </div>
+          </div>
+          <div class="indicator">
+            <div class="dot" id="indHandover">2</div>
+            <div>
+              <strong>Handover quality</strong>
+              <span id="indHandoverText">Waiting for first agent output.</span>
+            </div>
+          </div>
+          <div class="indicator">
+            <div class="dot" id="indHuman">3</div>
+            <div>
+              <strong>Human checkpoint</strong>
+              <span id="indHumanText">No human approval needed yet.</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <div class="section-title">
-      <h2>Interactive Workflow</h2>
-      <p class="hint">Click each stage to view the key information needed.</p>
+      <div>
+        <h2>Workflow Sequence</h2>
+        <p>Click a stage to view guidance. The active stage is controlled by the prototype flow.</p>
+      </div>
     </div>
 
-    <section class="workflow" aria-label="Workflow">
+    <section class="workflow">
       <div class="flow-row" id="flowRow">
         <div class="step research active" data-step="research" tabindex="0">
-          <div class="num"><span>1</span></div>
+          <div class="num">1</div>
           <h3>Research Agent</h3>
-          <p>Market signals and competitive intelligence</p>
+          <p>Market intelligence</p>
+          <span class="badge" id="badge-research">Ready</span>
         </div>
 
-        <div class="step briefing" data-step="briefing" tabindex="0">
-          <div class="num"><span>2</span></div>
+        <div class="step briefing locked" data-step="briefing" tabindex="0">
+          <div class="num">2</div>
           <h3>Briefing Agent</h3>
-          <p>Turns research into a clear campaign brief</p>
+          <p>Campaign brief</p>
+          <span class="badge" id="badge-briefing">Locked</span>
         </div>
 
-        <div class="step human" data-step="h1" tabindex="0">
-          <div class="num"><span>H1</span></div>
+        <div class="step human locked" data-step="h1" tabindex="0">
+          <div class="num">H1</div>
           <h3>Human Checkpoint 1</h3>
-          <p>Campaign direction approval</p>
+          <p>Campaign direction</p>
+          <span class="badge" id="badge-h1">Locked</span>
         </div>
 
-        <div class="step content" data-step="content" tabindex="0">
-          <div class="num"><span>3</span></div>
+        <div class="step content locked" data-step="content" tabindex="0">
+          <div class="num">3</div>
           <h3>Content Agent</h3>
-          <p>Creates platform-specific copy</p>
+          <p>Draft content</p>
+          <span class="badge" id="badge-content">Locked</span>
         </div>
 
-        <div class="step compliance" data-step="compliance" tabindex="0">
-          <div class="num"><span>4</span></div>
+        <div class="step compliance locked" data-step="compliance" tabindex="0">
+          <div class="num">4</div>
           <h3>Compliance Agent</h3>
-          <p>Checks rules, risks and brand safety</p>
+          <p>Risk checks</p>
+          <span class="badge" id="badge-compliance">Locked</span>
         </div>
 
-        <div class="step human" data-step="h2" tabindex="0">
-          <div class="num"><span>H2</span></div>
+        <div class="step human locked" data-step="h2" tabindex="0">
+          <div class="num">H2</div>
           <h3>Human Checkpoint 2</h3>
-          <p>Final content approval</p>
+          <p>Final approval</p>
+          <span class="badge" id="badge-h2">Locked</span>
         </div>
 
-        <div class="step publish" data-step="publish" tabindex="0">
-          <div class="num"><span>5</span></div>
+        <div class="step publish locked" data-step="publish" tabindex="0">
+          <div class="num">5</div>
           <h3>Publish</h3>
-          <p>Schedule approved content</p>
+          <p>Schedule content</p>
+          <span class="badge" id="badge-publish">Locked</span>
         </div>
 
-        <div class="step monitor" data-step="monitor" tabindex="0">
-          <div class="num"><span>6</span></div>
+        <div class="step monitor locked" data-step="monitor" tabindex="0">
+          <div class="num">6</div>
           <h3>Monitor</h3>
-          <p>Feed learnings back to research</p>
+          <p>Feedback loop</p>
+          <span class="badge" id="badge-monitor">Locked</span>
         </div>
-      </div>
-
-      <div class="details">
-        <article class="detail-panel" id="detailPanel">
-          <!-- JS injects content -->
-        </article>
-
-        <aside class="check-panel" id="checkPanel">
-          <!-- JS injects content -->
-        </aside>
       </div>
     </section>
 
-    <section class="routing" aria-label="Routing guidance">
-      <div class="route-card">
-        <h3>When to send back to Research</h3>
-        <p>Competitor data is missing, pricing looks outdated, market reaction is unclear, or audience insight is weak.</p>
-      </div>
-      <div class="route-card">
-        <h3>When to send back to Briefing</h3>
-        <p>The campaign focus is unclear, the benefit does not connect to the brand attribute, or the platform choice is not convincing.</p>
-      </div>
-      <div class="route-card">
-        <h3>When to send back to Content</h3>
-        <p>The message is off-brand, too generic, not platform-fit, or needs clearer copy before compliance or approval.</p>
-      </div>
+    <section class="main-grid">
+      <article class="stage-panel" id="stagePanel"></article>
+
+      <aside class="checks-panel" id="checksPanel">
+        <h2>Stage Checks</h2>
+        <p class="small-note">Tick all checks before completing this stage.</p>
+        <div class="check-list" id="checkList"></div>
+
+        <div class="quality-meter" aria-label="Check completion meter">
+          <div class="quality-fill" id="qualityFill"></div>
+        </div>
+        <div class="quality-text" id="qualityText">0% checks completed</div>
+
+        <div class="button-row">
+          <button type="button" id="completeStageBtn">Complete Stage</button>
+        </div>
+
+        <div class="gate-box" id="humanGate">
+          <h3>Human Approval Required</h3>
+          <p id="humanGateText">Review the output and decide whether to approve or send back for revision.</p>
+          <textarea id="humanNote" placeholder="Optional note: what needs to change or why it is approved"></textarea>
+          <div class="button-row">
+            <button type="button" class="approve" id="approveBtn">Approve</button>
+            <button type="button" class="revise" id="reviseBtn">Send Back for Revision</button>
+          </div>
+        </div>
+      </aside>
     </section>
 
-    <section class="footer-grid">
-      <div class="principles">
-        <h2>Key Principles</h2>
-        <ul>
-          <li>Humans review only at two critical points.</li>
-          <li>Agents handle heavy lifting, humans provide judgement.</li>
-          <li>The Orchestrator keeps humans posted and checks connection between steps.</li>
-          <li>Every agent must produce a usable output for the next agent.</li>
-        </ul>
-      </div>
-
-      <div class="copy-box">
-        <h2>Simple Sequence</h2>
-        <div class="sequence-text" id="sequenceText">
-          Orchestrator → Research → Briefing → Human Check 1 → Content → Compliance → Human Check 2 → Publish → Monitor → Feedback
-        </div>
-        <button type="button" id="copyBtn">Copy Sequence</button>
-        <div class="toast" id="toast">Copied.</div>
-      </div>
+    <section class="log-panel">
+      <h2>Orchestrator Log</h2>
+      <div class="log" id="log"></div>
     </section>
   </main>
 
   <script>
+    const sequence = ["research", "briefing", "h1", "content", "compliance", "h2", "publish", "monitor"];
+
     const data = {
       research: {
         title: "Research Agent",
-        role: "Produces structured market intelligence for the Briefing Agent.",
-        tags: ["Input Agent", "Market Intelligence", "Always-on"],
+        type: "agent",
+        colorClass: "research",
+        role: "Monitors competitive landscape and market signals, then produces structured intelligence for the Briefing Agent.",
+        tags: ["Market signals", "Competitor pricing", "Audience insight"],
         perceive: [
-          "Competitor pricing pages and ecommerce listings",
-          "Reviews, LinkedIn updates, news and social feeds",
-          "Product specs, previous launch report and audience brief",
-          "Audience behaviours, media habits and age group signals"
+          "Competitor pricing pages, review sites, ecommerce platforms",
+          "LinkedIn announcements, news feeds and social media feeds",
+          "Product spec sheet, previous launch performance report and audience brief"
         ],
-        plan: [
-          "Prioritise signals: pricing change > new product > press release",
-          "Map competitor features and pricing against MacBook offer",
-          "Identify positioning gaps and missing data"
-        ],
-        act: [
-          "Use scraping/API and LLM synthesis",
-          "Draft competitive landscape summary",
-          "Recommend positioning angles and pricing benchmarks"
-        ],
-        observe: [
-          "Check timestamp is within 24 hours where relevant",
-          "Check key competitors are covered",
-          "Re-query if fields are missing or outdated"
-        ],
-        output: "Market intelligence summary with competitor analysis, pricing range, audience signals and positioning gaps.",
+        output: "Competitive landscape summary with pricing range, audience signals and positioning gaps.",
         checks: [
-          "Are key competitors covered?",
-          "Are pricing and claims current?",
-          "Are sources reliable enough?",
-          "Is there enough insight to create a brief?"
-        ]
+          "Key competitors are covered",
+          "Pricing benchmarks are included",
+          "Sources are current and timestamped",
+          "Positioning gaps are clearly stated"
+        ],
+        completeMessage: "Research completed. Orchestrator received market intelligence and can route it to Briefing."
       },
       briefing: {
         title: "Briefing Agent",
-        role: "Turns research into a clear content brief.",
-        tags: ["Strategy Bridge", "Campaign Direction", "Brief Builder"],
+        type: "agent",
+        colorClass: "briefing",
+        role: "Turns the research into a clear campaign brief using the structure: Benefit X → Brand Attribute Y → Audience Z → Content B → Platform C.",
+        tags: ["Campaign direction", "Audience fit", "Platform fit"],
         perceive: [
-          "MacBook benefit",
-          "Brand attribute to highlight",
-          "Target audience and key pain point",
-          "Pricing, platform and content requirement",
-          "Research Agent’s positioning insights"
+          "Research summary",
+          "MacBook benefit and brand attribute",
+          "Target audience, pricing, content need and platform"
         ],
-        plan: [
-          "Connect benefit to brand attribute",
-          "Explain why it matters to the audience",
-          "Select suitable content type and platform",
-          "Check timeline and campaign fit"
-        ],
-        act: [
-          "Generate structured campaign brief",
-          "Use: Focus on benefit X to highlight brand attribute Y for audience Z",
-          "Recommend content B for platform C"
-        ],
-        observe: [
-          "Check clarity and logic",
-          "Check audience relevance",
-          "Check platform suitability"
-        ],
-        output: "Approved-ready brief linking benefit, brand attribute, audience, content format and platform.",
+        output: "Structured content brief ready for Human Checkpoint 1.",
         checks: [
-          "Is the campaign focus clear?",
-          "Does the benefit support the brand attribute?",
-          "Is the audience specific enough?",
-          "Is the platform recommendation sensible?"
-        ]
+          "Benefit X is clear",
+          "Brand attribute Y is clearly linked",
+          "Audience Z is specific",
+          "Content B and platform C are suitable"
+        ],
+        completeMessage: "Briefing completed. Orchestrator is requesting Human Checkpoint 1."
       },
       h1: {
-        title: "Human Checkpoint 1: Campaign Direction Approval",
-        role: "Human approves the campaign direction before content production starts.",
-        tags: ["Human Decision Gate", "Before Content Creation"],
+        title: "Human Checkpoint 1",
+        type: "human",
+        colorClass: "human",
+        role: "Human reviews campaign direction before the Content Agent starts.",
+        tags: ["Campaign direction approval", "Before content creation"],
         perceive: [
           "Research summary",
           "Structured campaign brief",
-          "Target audience and platform recommendation"
+          "Recommended audience, content and platform"
         ],
-        plan: [
-          "Review whether the direction is strategically sound",
-          "Decide whether agents can proceed to content creation"
-        ],
-        act: [
-          "Approve the brief",
-          "Send back to Research Agent if evidence is weak",
-          "Send back to Briefing Agent if the direction is unclear"
-        ],
-        observe: [
-          "Ensure decision is recorded",
-          "Ensure next agent receives approved direction only"
-        ],
-        output: "Go / revise decision before content creation.",
+        output: "Approved direction or revision request.",
         checks: [
-          "Is the research accurate enough?",
-          "Is the brief clear and usable?",
-          "Is the audience and platform fit correct?",
-          "Is the campaign message aligned with brand intent?"
-        ]
+          "Research is accurate enough",
+          "Brief is clear and logical",
+          "Audience and platform fit are appropriate",
+          "Campaign direction is suitable for brand message"
+        ],
+        completeMessage: "Human Checkpoint 1 approved. Orchestrator can route the approved brief to Content."
       },
       content: {
         title: "Content Agent",
-        role: "Creates platform-specific copy based on the approved brief.",
-        tags: ["Creative Drafting", "Platform Copy", "Content Production"],
+        type: "agent",
+        colorClass: "content",
+        role: "Creates draft content for TikTok, Instagram, Facebook and website based on the approved brief.",
+        tags: ["Copy creation", "Channel adaptation", "Brand tone"],
         perceive: [
-          "Approved campaign brief",
-          "Value proposition and product information",
-          "Audience personas and brand guidelines",
-          "MacBook imagery, market region and platform specs",
-          "Past social media content"
-        ],
-        plan: [
-          "Match message to audience and platform",
-          "Adapt tone and format by channel",
-          "Use past content as style reference"
-        ],
-        act: [
-          "Draft 3 copy options per channel",
-          "Channels: TikTok, Instagram, Facebook and Website",
-          "Prepare copy for compliance review"
-        ],
-        observe: [
-          "Check brand tone",
-          "Check platform fit",
-          "Check safety and basic quality"
+          "Approved brief",
+          "Product info, personas, brand guidelines and platform specs",
+          "MacBook imagery and past social content"
         ],
         output: "Draft content options ready for compliance review.",
         checks: [
-          "Is the copy aligned to the approved brief?",
-          "Is the copy suitable for each platform?",
-          "Is it clear and not too generic?",
-          "Does it stay within brand tone?"
-        ]
+          "Copy follows the approved brief",
+          "Copy is suitable for each platform",
+          "Copy is aligned to brand tone",
+          "Copy is clear and not generic"
+        ],
+        completeMessage: "Content draft completed. Orchestrator can route it to Compliance."
       },
       compliance: {
         title: "Compliance Agent",
-        role: "Checks content against campaign, brand, platform, legal and safety rules.",
-        tags: ["Risk Review", "Brand Safety", "Guideline Check"],
+        type: "agent",
+        colorClass: "compliance",
+        role: "Checks draft content against campaign brief, brand guidelines, platform rules, legal requirements and brand safety.",
+        tags: ["Compliance", "Brand safety", "Risk review"],
         perceive: [
           "Draft content from Content Agent",
-          "Campaign brief",
-          "Brand guidelines and brand voice rules",
-          "Platform guidelines, internal marketing codes and legal rules",
-          "Priority matrix for guidelines"
+          "Brand guidelines, platform rules and internal marketing codes",
+          "Legal, product compliance and priority matrix"
         ],
-        plan: [
-          "Scan in priority order: brief → brand → legal/safety → platform",
-          "Flag gaps, ambiguity and risk level",
-          "Prepare checklist for human approval"
-        ],
-        act: [
-          "Identify specific guideline or rule breached",
-          "Assign priority level",
-          "Recommend fix or escalation"
-        ],
-        observe: [
-          "Check compliance accuracy",
-          "Check moderation quality",
-          "Escalate unclear legal or brand safety issues"
-        ],
-        output: "Compliance checklist with flagged issues, priority levels and recommended fixes.",
+        output: "Compliance checklist with flagged issues, priority level and recommended fixes.",
         checks: [
-          "Are product claims safe?",
-          "Does copy follow brand guidelines?",
-          "Does it follow platform rules?",
-          "Are legal or brand safety risks clearly flagged?"
-        ]
+          "Product claims are safe",
+          "Brand guidelines are followed",
+          "Platform rules are followed",
+          "Any risks are flagged with recommended fixes"
+        ],
+        completeMessage: "Compliance review completed. Orchestrator is requesting Human Checkpoint 2."
       },
       h2: {
-        title: "Human Checkpoint 2: Final Content Approval",
-        role: "Human approves the final content before publishing.",
-        tags: ["Human Decision Gate", "Before Publishing"],
+        title: "Human Checkpoint 2",
+        type: "human",
+        colorClass: "human",
+        role: "Human gives final content approval before anything is published.",
+        tags: ["Final approval", "Before publishing"],
         perceive: [
-          "Content drafts",
+          "Draft content",
           "Compliance checklist",
-          "Recommended fixes and flagged risks"
+          "Flagged risks and recommended fixes"
         ],
-        plan: [
-          "Review final content quality and risk",
-          "Decide whether content is ready to publish"
-        ],
-        act: [
-          "Approve for publish",
-          "Send back to Content Agent for copy issue",
-          "Send back to Compliance Agent for risk issue",
-          "Send back to Briefing Agent if campaign direction is wrong"
-        ],
-        observe: [
-          "Ensure only approved content is published",
-          "Record approval and final decision"
-        ],
-        output: "Final publish / revise decision.",
+        output: "Approved content or revision request.",
         checks: [
-          "Is the content accurate and brand-aligned?",
-          "Are product claims safe and appropriate?",
-          "Does it follow platform and brand rules?",
-          "Is the content ready to publish?"
-        ]
+          "Final copy is accurate and brand-aligned",
+          "Product claims are appropriate",
+          "Legal, compliance and brand safety concerns are resolved",
+          "Content is ready to publish"
+        ],
+        completeMessage: "Human Checkpoint 2 approved. Orchestrator can route final content to publishing."
       },
       publish: {
         title: "Publish / Schedule Content",
-        role: "Approved content goes live across selected channels.",
-        tags: ["Execution", "Publishing"],
+        type: "agent",
+        colorClass: "publish",
+        role: "Publishes or schedules the final approved content across approved platforms.",
+        tags: ["Execution", "Scheduling", "Version control"],
         perceive: [
-          "Final approved copy",
-          "Approved platform list",
+          "Approved final copy",
+          "Approved platforms",
           "Publishing timeline"
         ],
-        plan: [
-          "Match content to channel and timing",
-          "Prepare schedule and posting details"
-        ],
-        act: [
-          "Publish or schedule content",
-          "Ensure correct asset and caption are used"
-        ],
-        observe: [
-          "Confirm post is live or scheduled",
-          "Check no wrong version was used"
-        ],
-        output: "Published or scheduled content across approved channels.",
+        output: "Content published or scheduled.",
         checks: [
-          "Is the correct final version used?",
-          "Is the platform and timing correct?",
-          "Are links, tags and assets correct?"
-        ]
+          "Correct final version is used",
+          "Correct platform is selected",
+          "Correct timing is applied",
+          "Assets, links and captions are checked"
+        ],
+        completeMessage: "Publishing completed. Orchestrator can move to post-campaign monitoring."
       },
       monitor: {
         title: "Post-Campaign Monitoring",
-        role: "Tracks performance and feeds insights back into the Orchestrator and Research Agent.",
-        tags: ["Learning Loop", "Optimisation"],
+        type: "agent",
+        colorClass: "monitor",
+        role: "Tracks performance, market reaction and competitor moves, then feeds insights back to Research.",
+        tags: ["Performance", "Market reaction", "Feedback loop"],
         perceive: [
-          "Engagement and performance results",
+          "Engagement and performance data",
           "Audience comments and sentiment",
           "Competitor response and market movement"
         ],
-        plan: [
-          "Compare results against campaign objective",
-          "Identify what should be adjusted next"
-        ],
-        act: [
-          "Summarise performance signals",
-          "Feed findings back to Orchestrator and Research Agent"
-        ],
-        observe: [
-          "Check if campaign needs adjustment",
-          "Track emerging market signals"
-        ],
-        output: "Post-campaign learning summary for next cycle.",
+        output: "Post-campaign learning summary for the next cycle.",
         checks: [
-          "What performed well?",
-          "What needs adjustment?",
-          "Did the audience respond as expected?",
-          "Should research watchlist be updated?"
-        ]
+          "Performance signals are captured",
+          "Audience response is summarised",
+          "Competitor reaction is noted",
+          "Learning is fed back to Orchestrator and Research"
+        ],
+        completeMessage: "Monitoring completed. Orchestrator has fed learning back to Research for the next cycle."
       }
     };
 
-    const detailPanel = document.getElementById("detailPanel");
-    const checkPanel = document.getElementById("checkPanel");
-    const steps = document.querySelectorAll(".step");
+    let activeStep = "research";
+    let started = false;
+    let completed = {};
+    let unlocked = { research: true };
+    let checkState = {};
+    let logEntries = [];
+
+    const stagePanel = document.getElementById("stagePanel");
+    const checkList = document.getElementById("checkList");
+    const qualityFill = document.getElementById("qualityFill");
+    const qualityText = document.getElementById("qualityText");
+    const completeStageBtn = document.getElementById("completeStageBtn");
+    const humanGate = document.getElementById("humanGate");
+    const humanGateText = document.getElementById("humanGateText");
+    const approveBtn = document.getElementById("approveBtn");
+    const reviseBtn = document.getElementById("reviseBtn");
+    const humanNote = document.getElementById("humanNote");
+    const logBox = document.getElementById("log");
+    const currentStageEl = document.getElementById("currentStage");
+    const orchestratorStatusEl = document.getElementById("orchestratorStatus");
+    const nextActionEl = document.getElementById("nextAction");
+
+    function nowTime() {
+      return new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function addLog(message) {
+      logEntries.unshift({ time: nowTime(), message });
+      renderLog();
+    }
+
+    function renderLog() {
+      if (logEntries.length === 0) {
+        logBox.innerHTML = `<div class="log-entry"><time>--</time><div>No updates yet. Start Research to begin.</div></div>`;
+        return;
+      }
+      logBox.innerHTML = logEntries.map(entry => `
+        <div class="log-entry">
+          <time>${entry.time}</time>
+          <div>${entry.message}</div>
+        </div>
+      `).join("");
+    }
 
     function list(items) {
       return "<ul>" + items.map(item => `<li>${item}</li>`).join("") + "</ul>";
     }
 
-    function render(stepKey) {
-      const item = data[stepKey];
+    function getNextStep(step) {
+      const idx = sequence.indexOf(step);
+      return sequence[idx + 1] || null;
+    }
 
-      detailPanel.className = "detail-panel " + (
-        stepKey === "research" ? "research" :
-        stepKey === "briefing" ? "briefing" :
-        stepKey === "content" ? "content" :
-        stepKey === "compliance" ? "compliance" :
-        stepKey === "publish" ? "publish" :
-        stepKey === "monitor" ? "monitor" : "human"
-      );
+    function getPrevAgentForHuman(step) {
+      if (step === "h1") return "briefing";
+      if (step === "h2") return "compliance";
+      return null;
+    }
 
-      detailPanel.innerHTML = `
+    function setActiveStep(step) {
+      if (!unlocked[step]) return;
+      activeStep = step;
+      render();
+    }
+
+    function updateStatuses() {
+      document.querySelectorAll(".step").forEach(el => {
+        const key = el.dataset.step;
+        const badge = document.getElementById(`badge-${key}`);
+
+        el.classList.remove("active", "locked", "completed", "needs-human", "revision");
+
+        if (key === activeStep) el.classList.add("active");
+        if (!unlocked[key]) el.classList.add("locked");
+        if (completed[key]) el.classList.add("completed");
+        if (unlocked[key] && data[key].type === "human" && !completed[key]) el.classList.add("needs-human");
+
+        if (badge) {
+          if (completed[key]) badge.textContent = "Done";
+          else if (!unlocked[key]) badge.textContent = "Locked";
+          else if (key === activeStep && started) badge.textContent = data[key].type === "human" ? "Needs approval" : "In progress";
+          else if (key === activeStep) badge.textContent = "Ready";
+          else badge.textContent = "Open";
+        }
+      });
+    }
+
+    function renderStage() {
+      const item = data[activeStep];
+
+      stagePanel.className = `stage-panel ${item.colorClass}`;
+      stagePanel.innerHTML = `
         <h2>${item.title}</h2>
-        <p style="margin-top:0;color:#475569;line-height:1.55">${item.role}</p>
+        <p class="small-note" style="margin-top:0">${item.role}</p>
         <div class="meta">${item.tags.map(t => `<span class="pill">${t}</span>`).join("")}</div>
-        <div class="detail-grid">
-          <div class="info-box"><h4>Perceive</h4>${list(item.perceive)}</div>
-          <div class="info-box"><h4>Plan</h4>${list(item.plan)}</div>
-          <div class="info-box"><h4>Act</h4>${list(item.act)}</div>
-          <div class="info-box"><h4>Observe</h4>${list(item.observe)}</div>
+        <div class="stage-guidance">
+          <div class="info-box">
+            <h4>Key Info Needed</h4>
+            ${list(item.perceive)}
+          </div>
+          <div class="info-box">
+            <h4>Expected Output</h4>
+            <p style="margin:0;color:#334155;line-height:1.55;font-size:.92rem">${item.output}</p>
+          </div>
         </div>
-        <div class="output"><strong>Key Output:</strong> ${item.output}</div>
-      `;
-
-      checkPanel.innerHTML = `
-        <h2>Key Guidance</h2>
-        <p style="margin-top:0;color:#64748b;line-height:1.55">
-          Use this as the minimum check before the work moves forward.
-        </p>
-        <div class="check-list">
-          ${item.checks.map(c => `
-            <div class="check-item">
-              <div class="tick">✓</div>
-              <div>${c}</div>
-            </div>
-          `).join("")}
+        <div class="stage-output">
+          <strong>Orchestrator indicator:</strong> ${getIndicatorText(activeStep)}
         </div>
       `;
     }
 
-    steps.forEach(step => {
+    function getIndicatorText(step) {
+      if (!started) return "Workflow not started. Research is waiting to begin.";
+      if (completed[step]) return `${data[step].title} has been completed and the output has been passed to the Orchestrator.`;
+      if (data[step].type === "human") return `Human approval is required before the Orchestrator can proceed.`;
+      return `${data[step].title} is active. Complete the checks before the Orchestrator routes the output forward.`;
+    }
+
+    function renderChecks() {
+      const item = data[activeStep];
+      checkState[activeStep] ||= item.checks.map(() => false);
+
+      checkList.innerHTML = item.checks.map((check, idx) => `
+        <label class="check-item">
+          <input type="checkbox" data-check="${idx}" ${checkState[activeStep][idx] ? "checked" : ""} ${!started && activeStep === "research" ? "disabled" : ""}>
+          <span>${check}</span>
+        </label>
+      `).join("");
+
+      checkList.querySelectorAll("input").forEach(input => {
+        input.addEventListener("change", () => {
+          checkState[activeStep][Number(input.dataset.check)] = input.checked;
+          updateQuality();
+        });
+      });
+
+      if (item.type === "human" && unlocked[activeStep] && !completed[activeStep]) {
+        humanGate.classList.add("show");
+        humanGateText.textContent = activeStep === "h1"
+          ? "Approve campaign direction before content creation starts, or send it back for revision."
+          : "Approve final content before publishing, or send it back for revision.";
+        completeStageBtn.style.display = "none";
+      } else {
+        humanGate.classList.remove("show");
+        completeStageBtn.style.display = "";
+      }
+
+      updateQuality();
+    }
+
+    function checksComplete() {
+      return (checkState[activeStep] || []).every(Boolean);
+    }
+
+    function updateQuality() {
+      const checks = checkState[activeStep] || [];
+      const done = checks.filter(Boolean).length;
+      const total = checks.length || 1;
+      const pct = Math.round((done / total) * 100);
+      qualityFill.style.width = `${pct}%`;
+      qualityText.textContent = `${pct}% checks completed`;
+      completeStageBtn.disabled = !started || completed[activeStep] || data[activeStep].type === "human" || !checksComplete();
+      approveBtn.disabled = !checksComplete();
+    }
+
+    function completeStage() {
+      if (!started || completed[activeStep] || !checksComplete()) return;
+
+      completed[activeStep] = true;
+      addLog(data[activeStep].completeMessage);
+
+      const next = getNextStep(activeStep);
+      if (next) {
+        unlocked[next] = true;
+        activeStep = next;
+
+        if (data[next].type === "human") {
+          addLog(`Orchestrator alert: ${data[next].title} is required before moving forward.`);
+        } else {
+          addLog(`Orchestrator routed work to ${data[next].title}.`);
+        }
+      } else {
+        addLog("Workflow cycle completed.");
+      }
+
+      updateOrchestrator();
+      render();
+    }
+
+    function approveHumanGate() {
+      if (data[activeStep].type !== "human" || !checksComplete()) return;
+
+      const note = humanNote.value.trim();
+      completed[activeStep] = true;
+      addLog(`${data[activeStep].completeMessage}${note ? " Note: " + note : ""}`);
+      humanNote.value = "";
+
+      const next = getNextStep(activeStep);
+      if (next) {
+        unlocked[next] = true;
+        activeStep = next;
+        addLog(`Orchestrator routed approved work to ${data[next].title}.`);
+      }
+
+      updateOrchestrator();
+      render();
+    }
+
+    function reviseHumanGate() {
+      if (data[activeStep].type !== "human") return;
+
+      const target = getPrevAgentForHuman(activeStep);
+      const note = humanNote.value.trim();
+      completed[activeStep] = false;
+
+      if (target) {
+        completed[target] = false;
+        unlocked[target] = true;
+        activeStep = target;
+        addLog(`Human requested revision. Orchestrator routed work back to ${data[target].title}.${note ? " Note: " + note : ""}`);
+      }
+
+      humanNote.value = "";
+      updateOrchestrator();
+      render();
+    }
+
+    function updateOrchestrator() {
+      const item = data[activeStep];
+      currentStageEl.textContent = started ? item.title : "Not started";
+
+      if (!started) {
+        orchestratorStatusEl.textContent = "Waiting for Research to start";
+        nextActionEl.textContent = "Click “Start Research”";
+      } else if (item.type === "human" && !completed[activeStep]) {
+        orchestratorStatusEl.textContent = "Human approval needed";
+        nextActionEl.textContent = "Complete checks, then approve or send back";
+      } else if (completed[activeStep]) {
+        orchestratorStatusEl.textContent = "Stage completed";
+        nextActionEl.textContent = "Select the next open stage";
+      } else {
+        orchestratorStatusEl.textContent = "Agent working";
+        nextActionEl.textContent = "Complete stage checks";
+      }
+
+      updateIndicators();
+    }
+
+    function updateIndicators() {
+      const inputDot = document.getElementById("indInput");
+      const handoverDot = document.getElementById("indHandover");
+      const humanDot = document.getElementById("indHuman");
+      const inputText = document.getElementById("indInputText");
+      const handoverText = document.getElementById("indHandoverText");
+      const humanText = document.getElementById("indHumanText");
+
+      inputDot.className = "dot";
+      handoverDot.className = "dot";
+      humanDot.className = "dot";
+
+      if (started) {
+        inputDot.classList.add("on");
+        inputText.textContent = "Research has started and campaign inputs are being processed.";
+      } else {
+        inputText.textContent = "Waiting for campaign input to be processed by Research.";
+      }
+
+      const completedCount = sequence.filter(s => completed[s]).length;
+      if (completedCount > 0) {
+        handoverDot.classList.add("on");
+        handoverText.textContent = `${completedCount} stage(s) completed and handed to the Orchestrator.`;
+      } else {
+        handoverText.textContent = "Waiting for first agent output.";
+      }
+
+      if (started && data[activeStep].type === "human" && !completed[activeStep]) {
+        humanDot.classList.add("wait");
+        humanText.textContent = `${data[activeStep].title} is waiting for human decision.`;
+      } else if (completed.h1 && completed.h2) {
+        humanDot.classList.add("on");
+        humanText.textContent = "Both human checkpoints have been completed.";
+      } else if (completed.h1) {
+        humanDot.classList.add("on");
+        humanText.textContent = "Human Checkpoint 1 completed. Final approval still pending later.";
+      } else {
+        humanText.textContent = "No human approval needed yet.";
+      }
+    }
+
+    function startPrototype() {
+      started = true;
+      activeStep = "research";
+      unlocked.research = true;
+      addLog("Workflow started. Orchestrator activated Research Agent and is tracking progress.");
+      updateOrchestrator();
+      render();
+    }
+
+    function resetPrototype() {
+      started = false;
+      completed = {};
+      unlocked = { research: true };
+      checkState = {};
+      logEntries = [];
+      activeStep = "research";
+      updateOrchestrator();
+      render();
+      renderLog();
+    }
+
+    function render() {
+      updateStatuses();
+      renderStage();
+      renderChecks();
+      updateOrchestrator();
+    }
+
+    document.querySelectorAll(".step").forEach(step => {
       step.addEventListener("click", () => {
-        steps.forEach(s => s.classList.remove("active"));
-        step.classList.add("active");
-        render(step.dataset.step);
+        const key = step.dataset.step;
+        if (!unlocked[key]) return;
+        setActiveStep(key);
       });
 
       step.addEventListener("keydown", (event) => {
@@ -942,19 +1284,25 @@
       });
     });
 
-    document.getElementById("copyBtn").addEventListener("click", async () => {
-      const text = document.getElementById("sequenceText").innerText;
+    document.getElementById("startBtn").addEventListener("click", startPrototype);
+    document.getElementById("resetBtn").addEventListener("click", resetPrototype);
+    completeStageBtn.addEventListener("click", completeStage);
+    approveBtn.addEventListener("click", approveHumanGate);
+    reviseBtn.addEventListener("click", reviseHumanGate);
+
+    document.getElementById("copyLogBtn").addEventListener("click", async () => {
+      const text = logEntries.slice().reverse().map(e => `${e.time} - ${e.message}`).join("\n") || "No log entries yet.";
       try {
         await navigator.clipboard.writeText(text);
-        const toast = document.getElementById("toast");
-        toast.style.display = "block";
-        setTimeout(() => toast.style.display = "none", 1800);
-      } catch (e) {
+        addLog("Orchestrator log copied.");
+      } catch {
         alert(text);
       }
     });
 
-    render("research");
+    renderLog();
+    updateOrchestrator();
+    render();
   </script>
 </body>
 </html>
